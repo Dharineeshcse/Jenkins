@@ -1,11 +1,11 @@
 #!/bin/bash
+
 set -e
 
-echo "Running Unit Tests"
+echo "=================================="
+echo "Running Tests"
+echo "=================================="
 
-mkdir -p reports
+source .venv/bin/activate
 
-pytest tests \
---junitxml=reports/test-report.xml
-
-echo "Tests Finished"
+pytest tests -v
