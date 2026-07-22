@@ -1,10 +1,14 @@
 #!/bin/bash
 set -e
 
+echo "=================================="
 echo "Packaging Application"
+echo "=================================="
 
 mkdir -p artifacts
 
-zip -r artifacts/application.zip app
+tar -czf artifacts/python-app.tar.gz app/
 
 echo "Package Created"
+
+ls -lh artifacts/
