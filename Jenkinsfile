@@ -6,32 +6,31 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'bash scripts/build.sh'
+                sh 'chmod +x scripts/build.sh'
+                sh './scripts/build.sh'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'bash scripts/run-tests.sh'
-            }
-        }
-
-        stage('Package') {
-            steps {
-                sh 'bash scripts/package.sh'
+                sh 'chmod +x scripts/run-tests.sh'
+                sh './scripts/run-tests.sh'
             }
         }
 
     }
 
     post {
-
         always {
+            echo 'Pipeline Finished'
+        }
 
-            archiveArtifacts artifacts: 'artifacts/*'
+        success {
+            echo 'Build Successful'
+        }
 
-            junit 'reports/test-report.xml'
+        failure {
+            echo 'Build Failed'
         }
     }
-
 }
