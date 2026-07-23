@@ -1,0 +1,64 @@
+def services = [
+    retail : [priority : 1, region : 'us-east-1'],
+    wholesale : [priority : 2, region : 'us-west-1'],
+    refund : [priority : 3, region : 'us-north-1']
+]
+
+def processOrder(String name, Map cfg, int attempt){
+    echo "Attempt - ${attempt}"
+    echo "Processing ${name} order - Priority - ${cfg['priority']} level"
+}
+
+pipeline{
+    agent any
+    parameters {
+        string(
+            name: 'ORDER_TYPE',
+            defaultValue: '',
+            description: 'Order type to process'
+        )
+    }
+    stages{
+        
+        stage("Validate"){
+            steps{
+                script{
+                    def orderType = params.ORDER_TYPE ?: 'retail'
+                    if (services.containsKey(orderType)){
+                        env.RESOLVED_ORDER_TYPE = orderType
+                    }
+                    else{
+                       error "Service type not found"
+                    }
+                }
+            }
+        }
+        stage('Process'){
+            steps{
+                script{
+                    def name = env.RESOLVED_ORDER_TYPE
+                    def cfg = services[name]
+                    
+                    int attempts = 0
+                    boolean success = false
+                    while(attempts < 3 && !success){
+                        if(services.containsKey(name)){
+                            success =  true
+                            processOrder(name, cfg, attempts)
+                        }
+                        attempts++
+                    }
+                    if(!success){
+                        echo "Services not found"
+                    }
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo "This build is triggered from github webhook"
+        }
+    }
+}
