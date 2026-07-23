@@ -26,7 +26,7 @@ scripts/        Build Scripts
 artifacts/      Generated Files
 reports/        Test Reports
 kubernetes/     Kubernetes Manifests
-Jenkins/        Contains all the jenkin files used in projects
+Jenkins/        Contains all the jenkin files used in the projects
 Dockerfile      Docker Image
 Jenkinsfile     Jenkins Pipeline
 ```
