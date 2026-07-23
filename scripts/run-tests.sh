@@ -5,9 +5,26 @@ echo "=================================="
 echo "Running Tests"
 echo "=================================="
 
-source .venv/bin/activate
+
 
 export PYTHONPATH=$PWD
+
+echo "Creating Virtual Environment..."
+
+python -m venv .venv
+
+echo "Activating Virtual Environment..."
+
+source .venv/bin/activate
+
+echo "Installing Dependencies..."
+
+pip install --upgrade pip
+pip install -r app/requirements.txt
+
+echo "Dependencies Installed"
+
+
 
 mkdir -p reports
 
