@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Run Tests') {
+            steps {
+                echo "Running Tests..."
+                sh '''
+                    chmod +x scripts/run-tests.sh
+                    ./scripts/run-tests.sh
+                '''
+            }
+        }
+    }
+}

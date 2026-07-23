@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building Application..."
+                sh '''
+                    chmod +x scripts/build.sh
+                    ./scripts/build.sh
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Build Successful"
+        }
+    }
+}
