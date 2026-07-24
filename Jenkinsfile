@@ -5,6 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Login Feature Build"
+                sleep 10
             }
         }
     }
