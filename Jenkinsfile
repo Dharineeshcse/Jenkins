@@ -6,8 +6,8 @@ pipeline {
             steps {
                 build job: 'multibranch-pipeline-v2/main'
                 build job: 'multibranch-pipeline-v2/develop'
-                build job: 'multibranch-pipeline-v2/feature-login'
-                build job: 'multibranch-pipeline-v2/feature-payment'
+                build job: 'multibranch-pipeline-v2/feature/login'
+                build job: 'multibranch-pipeline-v2/feature/payment'
             }
         }
     }
