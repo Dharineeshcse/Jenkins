@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent{
+        label 'self-hosted-linux'
+    }
 
     stages {
         stage('Build') {
